@@ -3,7 +3,7 @@ package main.java.algo.ct;
 import java.util.*;
 import java.io.*;
 
-public class BOJ18258 {
+public class BOJ_18258 {
 
     static Deque<Integer> queue = new LinkedList<>();
     static int N;
