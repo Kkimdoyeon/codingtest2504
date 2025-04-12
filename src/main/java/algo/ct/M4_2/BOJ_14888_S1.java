@@ -1,4 +1,4 @@
-package main.java.algo.ct;
+package main.java.algo.ct.M4_2;
 
 import java.util.*;
 import java.io.*;
@@ -20,14 +20,14 @@ public class BOJ_14888_S1 {
         }
 
         for (int i = 0; i < 4; i++) {
-            if (symbol[i] > 0) {
-                symbol[i]--;
+            if (symbol[i] > 0) { // 해당 연산자가 남아있다면
+                symbol[i]--; // 연산자 사용
 
                 int next = 0;
                 if (i == 0) next = current + array.get(depth + 1);
                 else if (i == 1) next = current - array.get(depth + 1);
                 else if (i == 2) next = current * array.get(depth + 1);
-                else if (i == 3) {
+                else {
                     if (current < 0 )
                         next = -(-current / array.get(depth + 1));
                     else
