@@ -1,4 +1,4 @@
-package main.java.algo.ct;
+package main.java.algo.ct.M4_1;
 //https://school.programmers.co.kr/learn/courses/18/lessons/1876
 
 public class p1876 {

@@ -56,8 +56,8 @@ public class BOJ_14503_G5 {
                     moved = true;
                     break;
                 }
-
             }
+
             // 3. 청소할 곳 없으면 후진
             if (!moved) {
                 int back = (d + 2) % 4;

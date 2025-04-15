@@ -1,11 +1,10 @@
-package main.java.algo.ct;
+package main.java.algo.ct.M4_1;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
-public class BOJ_18258 {
-
-    static Deque<Integer> queue = new LinkedList<>();
+public class BOJ_10828 {
+    static Stack<Integer> stack = new Stack<>();
     static int N;
 
     public static void main(String[] args) throws IOException {
@@ -19,38 +18,33 @@ public class BOJ_18258 {
 
             if (command.startsWith("push")) {
                 int X = Integer.parseInt(command.split(" ")[1]);
-                queue.add(X);
+                stack.push(X);
             }
             else if (command.equals("pop")) {
-                if (queue.isEmpty())
+                if (stack.isEmpty())
                     sb.append(-1).append("\n");
-                else {
-                    sb.append(queue.poll()).append("\n");
-                }
+                else
+                    sb.append(stack.pop()).append("\n");
             }
             else if (command.equals("size")) {
-                sb.append(queue.size()).append("\n");
+                sb.append(stack.size()).append("\n");
             }
             else if (command.equals("empty")) {
-                if (queue.isEmpty())
+                if (stack.isEmpty())
                     sb.append(1).append("\n");
                 else
                     sb.append(0).append("\n");
             }
-            else if (command.equals("front")) {
-                if (queue.isEmpty())
+            else if (command.equals("top")) {
+                if (stack.isEmpty())
                     sb.append(-1).append("\n");
                 else
-                    sb.append(queue.peek()).append("\n");
-            }
-            else if (command.equals("back")) {
-                if (queue.isEmpty())
-                    sb.append(-1).append("\n");
-                else
-                    sb.append(queue.peekLast()).append("\n");
+                    sb.append(stack.peek()).append("\n");
             }
         }
 
-        System.out.print(sb);
+        System.out.println(sb);
     }
+
 }
+

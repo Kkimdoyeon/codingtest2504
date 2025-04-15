@@ -1,4 +1,4 @@
-package main.java.algo.ct;
+package main.java.algo.ct.M4_1;
 
 import java.util.*;
 

@@ -13,6 +13,7 @@ public class BOJ_14888_S1 {
     // 백트래킹 메서드: 현재 연산한 깊이(depth)와 현재까지 계산된 결과(current)
     static void dfs(int depth, int current) {
         // 숫자 N개로 만들 수 있는 연산은 N - 1번이므로, 종료 조건
+        // (((3 연산자 4) 연산자 5) 연산자 6)
         if (depth == N - 1) {
             max = Math.max(max, current);
             min = Math.min(min, current);
@@ -36,7 +37,7 @@ public class BOJ_14888_S1 {
 
                 dfs(depth + 1, next); // 다음 숫자와 함께 dfs 재귀 호출
 
-                symbol[i]++; // 백트래킹 (사용한 연산자 복구)
+                symbol[i]++; // 백트래킹 (사용한 연산자 복구) -> 다음 경우의 수에서 써야되니까 ;;
             }
         }
     }
