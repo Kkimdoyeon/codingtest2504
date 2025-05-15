@@ -6,11 +6,10 @@ import java.io.InputStreamReader;
 
 public class BOJ_1987_알파벳_G4 {
     static int R, C, max = 0;
-    static char[][] board;
-    static boolean[] visited = new boolean[26]; // 알파벳 A~Z
-
-    static int[] dx = {-1, 1, 0, 0};
-    static int[] dy = {0, 0, -1, 1};
+    static boolean check[] = new boolean[26];
+    static char arr[][];
+    static int dx[] = {-1, 1, 0, 0};
+    static int dy[] = {0, 0, -1, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -18,15 +17,15 @@ public class BOJ_1987_알파벳_G4 {
         R = Integer.parseInt(rc[0]);
         C = Integer.parseInt(rc[1]);
 
-        board = new char[R][C];
+        arr = new char[R][C];
         for (int i = 0; i < R; i++) {
             String line = br.readLine();
-            for (int j = 0; j < C; j++) {
-                board[i][j] = line.charAt(j);
-            }
+            for (int j = 0; j < C; j++)
+                arr[i][j] = line.charAt(j); // j번째 문자열 꺼내기
         }
 
-        visited[board[0][0] - 'A'] = true;
+        check[arr[0][0] - 'A'] = true;
+
         dfs(0, 0, 1);
 
         System.out.println(max);
@@ -35,17 +34,14 @@ public class BOJ_1987_알파벳_G4 {
     static void dfs(int x, int y, int depth) {
         max = Math.max(max, depth);
 
-        for (int d = 0; d < 4; d++) {
-            int nx = x + dx[d];
-            int ny = y + dy[d];
+        for (int i = 0; i < 4; i++) {
+            int currentX = x + dx[i];
+            int currentY = y + dy[i];
 
-            if (nx >= 0 && ny >= 0 && nx < R && ny < C) {
-                char nextChar = board[nx][ny];
-                if (!visited[nextChar - 'A']) {
-                    visited[nextChar - 'A'] = true;
-                    dfs(nx, ny, depth + 1);
-                    visited[nextChar - 'A'] = false;
-                }
+            if (currentX >= 0 && currentX < R && currentY >= 0 && currentY < C && !check[arr[currentX][currentY] - 'A']) {
+                check[arr[currentX][currentY] - 'A'] = true;
+                dfs(currentX, currentY, depth + 1);
+                check[arr[currentX][currentY] - 'A'] = false;
             }
         }
     }
