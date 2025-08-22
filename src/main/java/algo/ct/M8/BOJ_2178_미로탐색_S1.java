@@ -5,12 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
+// 최소의 칸 수 bfs
 public class BOJ_2178_미로탐색_S1 {
     static int N, M;
-    static int arr[][];
+    static int[][] arr;
+    static int[][] dist;
     static boolean[][] visited;
-    static int[] nearX = {-1, 0, 1, 0};
-    static int[] nearY = {0, 1, 0, -1};
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, -1, 0, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,49 +21,50 @@ public class BOJ_2178_미로탐색_S1 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        visited = new boolean[N][M];
         arr = new int[N][M];
-
-//        for (int i = 0; i < N; i++) {
-//            char[] chars = br.readLine().toCharArray();
-//            for (int j = 0; j < M; j++) {
-//                arr[i].add(chars[j] - '0');
-//            }
-//        }
+        dist = new int[N][M];
+        visited = new boolean[N][M];
 
         for (int i = 0; i < N; i++) {
             String line = br.readLine();
-            for (int j = 0; j < M; j++)
+            for (int j = 0; j < M; j++) {
                 arr[i][j] = line.charAt(j) - '0';
+            }
         }
 
-        bfs(0, 0);
-        System.out.println(arr[N-1][M-1]);
+        bfs(0,0);
+        System.out.println(dist[N-1][M-1]);
     }
 
-    // 상하좌우 체크해야되는군
     public static void bfs(int x, int y) {
-        Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{x, y});
+        // queue 배열로 만들어서 넣기
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{x, y});
         visited[x][y] = true;
-        arr[x][y] = 1;
+        dist[x][y] = 1;
 
-        while (!q.isEmpty()) {
-            int[] now = q.poll();
-            int cx = now[0];
-            int cy = now[1];
+        // 네 방향으로 탐색하면서 queue에 계속 넣고.. 빼기
+        while (!queue.isEmpty()) {
+            int[] now = queue.poll();
+            x = now[0];
+            y = now[1];
 
-            for (int dir = 0; dir < 4; dir++) {
-                int nx = cx + nearX[dir];
-                int ny = cy + nearY[dir];
+            for (int d = 0; d < 4; d++) {
+                int nx = x + dx[d];
+                int ny = y + dy[d];
 
+                // 1. 범위 벗어나면 무시
                 if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-                if (arr[nx][ny] == 0) continue; // 벽이면 통과 불가
-                if (visited[nx][ny]) continue; // 방문했다면 통과 불가
+
+                // 2. 길이 아니면 무시
+                if (arr[nx][ny] == 0) continue;
+
+                // 3. 이미 방문했으면 무시
+                if (visited[nx][ny]) continue;
 
                 visited[nx][ny] = true;
-                arr[nx][ny] = arr[cx][cy] + 1;
-                q.add(new int[]{nx, ny});
+                dist[nx][ny] = dist[x][y] + 1;
+                queue.add(new int[]{nx, ny});
             }
         }
     }
