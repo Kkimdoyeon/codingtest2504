@@ -1,26 +1,27 @@
-package algo.ct.M5_1;
+package algo.ct.M11;
 
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class BOJ_15649_N과M_S3 {
+public class BOJ_15650_N과M2_S3 {
     static int N, M;
+    static boolean[] visited; // 왜 필요없지
     static int[] selected;
-    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
+
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
         selected = new int[M];
-        visited = new boolean[N+1]; // 0번 인덱스 안 쓰니까
-        // 숫자 1~N 썼는지 체크, 1번 썼으면 visited[1] = true; 이런 식
 
-        dfs(0);
+        dfs(0, 1);
     }
 
-    static void dfs(int depth) {
+    public static void dfs(int depth, int start) {
         if (depth == M) {
             for (int i = 0; i < M; i++)
                 System.out.print(selected[i] + " ");
@@ -28,13 +29,9 @@ public class BOJ_15649_N과M_S3 {
             return;
         }
 
-        for (int i = 1; i <= N; i++) {
-            if (!visited[i]) {
-                visited[i] = true;
-                selected[depth] = i;
-                dfs(depth + 1);
-                visited[i] = false;
-            }
+        for (int i = start; i <= N; i++) {
+            selected[depth] = i;
+            dfs(depth + 1, i + 1);
         }
     }
 }
