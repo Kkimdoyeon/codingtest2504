@@ -30,48 +30,47 @@ public class BOJ_1260_DFS와BFS_S2 {
             arr.get(b).add(a);
         }
 
-        for (int i = 1; i <= N; i++)
+        for (int i = 1; i <= N; i++) {
             Collections.sort(arr.get(i));
+        }
 
         dfs(V);
-        Arrays.fill(visited, false);
         System.out.println();
+        Arrays.fill(visited, false);
         bfs(V);
     }
 
-    public static void dfs(int x) {
-        if (!visited[x])
-            visited[x] = true;
-        //else return;
+    public static void dfs(int idx) {
+        if (!visited[idx])
+            visited[idx] = true;
 
-        System.out.print(x + " ");
+        System.out.print(idx + " ");
 
-        for (int i = 0; i < arr.get(x).size(); i++) {
-            int next = arr.get(x).get(i);
+        for (int i = 0; i < arr.get(idx).size(); i++) {
+            int next = arr.get(idx).get(i);
             if (!visited[next]) {
-                visited[next] = true;
+                visited[next]= true;
                 dfs(next);
             }
         }
     }
 
-    public static void bfs(int x) {
-        if (!visited[x])
-            visited[x] = true;
-        //else return;
+    public static void bfs(int idx) {
+        if (!visited[idx])
+            visited[idx] = true;
 
-        Queue<Integer> q = new LinkedList<>();
-        q.add(x);
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(idx);
 
-        while (!q.isEmpty()) {
-            int idx = q.poll();
-            System.out.print(idx + " ");
+        while (!queue.isEmpty()) {
+            int x = queue.poll();
+            System.out.print(x + " ");
 
-            for (int i = 0; i < arr.get(idx).size(); i++) {
-                int next = arr.get(idx).get(i);
+            for (int i = 0; i < arr.get(x).size(); i++) {
+                int next = arr.get(x).get(i);
                 if (!visited[next]) {
                     visited[next] = true;
-                    q.add(next);
+                    queue.add(next);
                 }
             }
         }
