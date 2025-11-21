@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-// 2:06
+// 5:24
 public class BOJ_2606_바이러스_S3 {
     static int N, M;
     static ArrayList<ArrayList<Integer>> arr = new ArrayList<>();
     static boolean[] visited;
-    static int result = 0;
+    static int count = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,12 +19,11 @@ public class BOJ_2606_바이러스_S3 {
 
         N = Integer.parseInt(br.readLine());
         M = Integer.parseInt(br.readLine());
-
         for (int i = 0; i <= N; i++)
             arr.add(new ArrayList<>());
         visited = new boolean[N+1];
 
-        for (int i = 0 ; i < M; i++) {
+        for (int i = 1; i <= M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -33,16 +32,17 @@ public class BOJ_2606_바이러스_S3 {
         }
 
         dfs(1);
-        System.out.println(result);
+        System.out.println(count);
     }
 
-    public static void dfs(int idx) {
-        visited[idx] = true;
+    static void dfs(int start) {
+        if (!visited[start])
+            visited[start] = true;
 
-        for (int i = 0; i < arr.get(idx).size(); i++) {
-            int next = arr.get(idx).get(i);
+        for (int i = 0; i < arr.get(start).size(); i++) {
+            int next = arr.get(start).get(i);
             if (!visited[next]) {
-                result++;
+                count++;
                 dfs(next);
             }
         }
