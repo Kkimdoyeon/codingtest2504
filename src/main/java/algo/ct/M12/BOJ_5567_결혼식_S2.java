@@ -16,12 +16,12 @@ public class BOJ_5567_결혼식_S2 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        n = Integer.parseInt(br.readLine());
-        m = Integer.parseInt(br.readLine());
+        n = Integer.parseInt(br.readLine()); // 동기 수
+        m = Integer.parseInt(br.readLine()); // 리스트 길이
 
         for (int i = 0; i <= n; i++)
             arr.add(new ArrayList<>());
-        visited = new boolean[m+1];
+        visited = new boolean[n+1];
 
         for (int i = 0; i < m; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
@@ -31,12 +31,13 @@ public class BOJ_5567_결혼식_S2 {
             arr.get(b).add(a);
         }
 
-        bfs(1, 0);
+        bfs(1);
         System.out.println(result);
     }
 
-    public static void bfs(int idx, int depth) {Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{idx, depth});
+    public static void bfs(int idx) {
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{idx, 0});
         visited[idx] = true;
 
         while (!q.isEmpty()) {
